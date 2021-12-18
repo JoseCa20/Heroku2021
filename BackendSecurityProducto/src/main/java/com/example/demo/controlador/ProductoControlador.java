@@ -8,6 +8,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class ProductoControlador {
 	private ProductoService productoService;
 	
 	
+//	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody Producto producto){
 		return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto));
@@ -45,6 +47,7 @@ public class ProductoControlador {
 		return ResponseEntity.ok(producto);
 	}
 	
+	//@PreAuthorize("hasRole('ADMIN')")
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update (@RequestBody Producto productoDetalle, @PathVariable(value="id") Long productoId){
 		Optional<Producto> producto = productoService.findById(productoId);
@@ -60,7 +63,7 @@ public class ProductoControlador {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(producto.get()));
 	}
 	
-	
+	//@PreAuthorize("hasRole('ADMIN')")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value="id") Long productoId){
 		if(!productoService.findById(productoId).isPresent()) {
